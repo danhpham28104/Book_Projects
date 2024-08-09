@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thêm sách mới</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Quản lý kho sách</h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'index' %}">Trang chính</a></li>
+          <li><a href="{% url 'books_list' %}">Danh sách sách</a></li>
+          <li><a href="{% url 'add_book' %}">Thêm sách mới</a></li>
+          <li><a href="{% url 'books_list' %}">Cập nhật sách</a></li>
+        </ul>
+      </nav>
+    </header>
+    <form id="addBookForm">
+      {% csrf_token %}
+      <label for="name">Tên sách:</label>
+      <input type="text" id="name" name="name" required />
+      <label for="author">Tác giả:</label>
+      <input type="text" id="author" name="author" required />
+      <label for="genre">Thể loại:</label>
+      <input type="text" id="genre" name="genre" required />
+      <label for="quantity">Số lượng:</label>
+      <input type="number" id="quantity" name="quantity" required />
+      <label for="description">Mô tả:</label>
+      <textarea id="description" name="description"></textarea>
+      <button type="submit">Thêm sách</button>
+    </form>
+    <a href="{% url 'books_list' %}">Quay lại danh sách sách</a>
+
+    <script>
+      $(document).ready(function() {
+          $('#addBookForm').on('submit', function(event) {
+              event.preventDefault(); // Ngăn chặn hành động gửi form mặc định
+
+              $.ajax({
+                  type: 'POST',
+                  url: '{% url 'add_book' %}',
+                  data: $(this).serialize(), // Serialize form data
+                  success: function(response) {
+                      // Cập nhật bảng sách
+                      $('#bookTable tbody').append(`
+                          <tr>
+                              <td>${response.name}</td>
+                              <td>${response.author}</td>
+                              <td>${response.genre}</td>
+                              <td>${response.quantity}</td>
+                          </tr>
+                      `);
+                      // Reset form sau khi thêm thành công
+                      $('#addBookForm')[0].reset();
+                  },
+                  error: function(xhr, status, error) {
+                      alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                  }
+              });
+          });
+      });
+    </script>
+  </body>
+</html>

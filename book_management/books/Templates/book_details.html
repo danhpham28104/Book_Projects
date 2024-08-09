@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chi tiết sách</title>
+  </head>
+  <body>
+    <header>
+      <h1>Quản lý kho sách</h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'index' %}">Trang chính</a></li>
+          <li><a href="{% url 'books_list' %}">Danh sách sách</a></li>
+          <li><a href="{% url 'add_book' %}">Thêm sách mới</a></li>
+          <li><a href="">Cập nhật sách</a></li>
+        </ul>
+      </nav>
+    </header>
+    <p><strong>Tên sách:</strong> {{ book.name }}</p>
+    <p><strong>Tác giả:</strong> {{ book.author }}</p>
+    <p><strong>Thể loại:</strong> {{ book.genre }}</p>
+    <p><strong>Số lượng:</strong> {{ book.quantity }}</p>
+    <p><strong>Mô tả:</strong> {{ book.description }}</p>
+    <a href="{% url 'books_list' %}">Quay lại danh sách sách</a>
+  </body>
+</html>

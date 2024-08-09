@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cập nhật sách</title>
+  </head>
+  <body>
+    <header>
+      <h1>Quản lý kho sách</h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'index' %}">Trang chính</a></li>
+          <li><a href="{% url 'books_list' %}">Danh sách sách</a></li>
+          <li><a href="{% url 'add_book' %}">Thêm sách mới</a></li>
+          <li><a href="{% url 'books_list' %}">Cập nhật sách</a></li>
+        </ul>
+      </nav>
+    </header>
+    <h2>Cập nhật thông tin sách</h2>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Lưu</button>
+    </form>
+    <a href="{% url 'books_list' %}">Quay lại danh sách sách</a>
+  </body>
+</html>

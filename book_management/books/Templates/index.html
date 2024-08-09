@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý kho sách</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Quản lý kho sách</h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'index' %}">Trang chính</a></li>
+          <li><a href="{% url 'books_list' %}">Danh sách sách</a></li>
+          <li><a href="{% url 'add_book' %}">Thêm sách mới</a></li>
+          <li><a href="{% url 'books_list' %}">Cập nhật sách</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="dashboard">
+        <h2>Tổng quan kho sách</h2>
+        <div class="overview">
+          <p>Số lượng sách hiện có: <span id="totalBooks">0</span></p>
+          <p>Số lượng sách đã mượn: <span id="borrowedBooks">0</span></p>
+          <p>Số lượng sách còn lại: <span id="availableBooks">0</span></p>
+        </div>
+      </section>
+
+      <section id="books">
+        <h2>Danh sách sách</h2>
+        <table id="bookTable">
+          <thead>
+            <tr>
+              <th>Tên sách</th>
+              <th>Tác giả</th>
+              <th>Thể loại</th>
+              <th>Số lượng</th>
+            </tr>
+            {% for book in books %}
+            <tr>
+              <td>{{ book.name }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.genre }}</td>
+              <td>{{ book.quantity }}</td>
+            </tr>
+            {% endfor %}
+          </thead>
+          <tbody>
+            <!-- Danh sách sách sẽ được thêm vào đây -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="{% static 'js/index.js' %}"></script>
+  </body>
+</html>
