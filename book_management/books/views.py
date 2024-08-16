@@ -67,6 +67,7 @@ def add_book(request):
         return redirect('books_list')  # Chuyển hướng đến trang danh sách sách sau khi thêm sách mới
     return render(request, 'add_book.html')  #Trả về form thêm sách nếu form ko đúng yêu cấu
 
+
 def update_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
@@ -76,7 +77,9 @@ def update_book(request, pk):
             return redirect('books_list')
     else:
         form = BookForm(instance=book)
-    return render(request, 'update_book.html', {'form': form})
+    return render(request, 'update_book.html', {'form': form, 'book': book})
+
+
 
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
