@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Danh sách sách</title>
+    <link rel="stylesheet" href="{% static 'css/books.css' %}" />
   </head>
   <body>
     <header>
@@ -17,35 +19,58 @@
         </ul>
       </nav>
     </header>
-    <h2>Danh sách sách</h2>
-    <table>
-      <tr>
-        <th>Tên sách</th>
-        <th>Tác giả</th>
-        <th>Thể loại</th>
-        <th>Số lượng</th>
-        <th>Hành động</th>
-      </tr>
-      {% for book in books %}
-      <tr>
-        <td>{{ book.name }}</td>
-        <td>{{ book.author }}</td>
-        <td>{{ book.genre }}</td>
-        <td>{{ book.quantity }}</td>
-        <td>
-          <a href="{% url 'update_book' book.pk %}">Sửa</a>
-          <form
-            action="{% url 'delete_book' book.pk %}"
-            method="post"
-            style="display: inline"
-          >
-            {% csrf_token %}
-            <button type="submit">Xóa</button>
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
-    <a href="{% url 'add_book' %}">Thêm sách mới</a>
+
+    <main>
+      <section id="books">
+        <h2>Danh sách sách</h2>
+        <div class="filters">
+          <input type="text" id="searchInput" placeholder="Tìm kiếm sách..." />
+          <label for="filterGenre">Thể loại:</label>
+          <select id="filterGenre">
+            <option value="">Tất cả</option>
+            <option value="tiểu thuyết">Tiểu thuyết</option>
+            <option value="kinh dị">Kinh dị</option>
+            <option value="tâm lý">Tâm lý</option>
+            <option value="khoa học">Khoa học</option>
+            <option value="văn hóa">Văn hóa</option>
+            <option value="lịch sử">Lịch sử</option>
+          </select>
+        </div>
+        <table id="bookTable">
+          <thead>
+            <tr>
+              <th>Tên sách</th>
+              <th>Tác giả</th>
+              <th>Thể loại</th>
+              <th>Số lượng</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in books %}
+            <tr>
+              <td>{{ book.name }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.genre }}</td>
+              <td>{{ book.quantity }}</td>
+              <td>
+                <a href="{% url 'update_book' book.pk %}">Sửa</a>
+                <form
+                  action="{% url 'delete_book' book.pk %}"
+                  method="post"
+                  style="display: inline"
+                >
+                  {% csrf_token %}
+                  <button type="submit">Xóa</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="{% static 'js/books.js' %}"></script>
   </body>
 </html>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thêm sách mới</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/add_book.css' %}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
@@ -20,21 +20,24 @@
         </ul>
       </nav>
     </header>
-    <form id="addBookForm">
-      {% csrf_token %}
-      <label for="name">Tên sách:</label>
-      <input type="text" id="name" name="name" required />
-      <label for="author">Tác giả:</label>
-      <input type="text" id="author" name="author" required />
-      <label for="genre">Thể loại:</label>
-      <input type="text" id="genre" name="genre" required />
-      <label for="quantity">Số lượng:</label>
-      <input type="number" id="quantity" name="quantity" required />
-      <label for="description">Mô tả:</label>
-      <textarea id="description" name="description"></textarea>
-      <button type="submit">Thêm sách</button>
-    </form>
-    <a href="{% url 'books_list' %}">Quay lại danh sách sách</a>
+
+    <main>
+      <h2>Nhập thông tin để thêm sách mới</h2>
+      <form id="addBookForm">
+        {% csrf_token %}
+        <label for="name">Tên sách:</label>
+        <input type="text" id="name" name="name" required />
+        <label for="author">Tác giả:</label>
+        <input type="text" id="author" name="author" required />
+        <label for="genre">Thể loại:</label>
+        <input type="text" id="genre" name="genre" required />
+        <label for="quantity">Số lượng:</label>
+        <input type="number" id="quantity" name="quantity" required />
+        <label for="description">Mô tả:</label>
+        <textarea id="description" name="description"></textarea>
+        <button type="submit">Thêm sách</button>
+      </form>
+    </main>
 
     <script>
       $(document).ready(function() {

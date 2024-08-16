@@ -1,17 +1,33 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book, Genre, Author
 from .forms import BookForm
+from django.db.models import Sum
+
 
 # định nghĩa các hành động mà trang web thực hiện khi người dùng tương tác với giao diện
 def index(request):
-    total_books = Book.objects.count()   # tổng số sách
-    borrowed_books = 0   # số sách đã mượn 
-    available_books = total_books - borrowed_books  # số sách còn lại
-    books = Book.objects.all()  # Lấy tất cả sách để hiển thị trên trang chính
+    # Tính tổng số lượng sách hiện có (tổng số quyển sách)
+    total_books_quantity = Book.objects.aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0
+
+    # Số sách đã mượn (tạm thời giả định là 0)
+    borrowed_books = 0
+
+    # Số sách còn lại
+    available_books = total_books_quantity - borrowed_books
+
+    # Lấy danh sách các sách để hiển thị
+    books = Book.objects.all()
+
+    # Đưa số liệu tổng quan và danh sách sách vào context để truyền vào template
     context = {
         'books': books,
+        'total_books_quantity': total_books_quantity,
+        'borrowed_books': borrowed_books,
+        'available_books': available_books,
     }
-    return render(request, 'index.html', context)   # Trả về trang chính với các thông tin tổng quan về sách
+
+    # Trả về trang chính với các thông tin tổng quan về sách
+    return render(request, 'index.html', context)  
 
 def books_list(request):
     search_query = request.GET.get('search', '')   # Lấy từ khóa tìm kiếm từ yêu cầu GET

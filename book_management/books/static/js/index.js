@@ -1,10 +1,3 @@
-// Mẫu dữ liệu sách
-// const books = [
-//     { name: 'Sách A', author: 'Tác giả A', genre: 'Thể loại A', quantity: 10 },
-//     { name: 'Sách B', author: 'Tác giả B', genre: 'Thể loại B', quantity: 5 },
-//     { name: 'Sách C', author: 'Tác giả C', genre: 'Thể loại C', quantity: 7 },
-// ];
-
 // Cập nhật tổng quan và danh sách sách
 function updateDashboard() {
     const totalBooks = books.reduce((sum, book) => sum + book.quantity, 0);
@@ -30,4 +23,3 @@ function populateBookTable() {
 // Gọi hàm để cập nhật giao diện
 updateDashboard();
 populateBookTable();
-

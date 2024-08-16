@@ -25,9 +25,18 @@
       <section id="dashboard">
         <h2>Tổng quan kho sách</h2>
         <div class="overview">
-          <p>Số lượng sách hiện có: <span id="totalBooks">0</span></p>
-          <p>Số lượng sách đã mượn: <span id="borrowedBooks">0</span></p>
-          <p>Số lượng sách còn lại: <span id="availableBooks">0</span></p>
+          <p>
+            Số lượng sách hiện có:
+            <span id="totalBooks">{{ total_books_quantity }}</span>
+          </p>
+          <p>
+            Số lượng sách đã mượn:
+            <span id="borrowedBooks">{{ borrowed_books }}</span>
+          </p>
+          <p>
+            Số lượng sách còn lại:
+            <span id="availableBooks">{{ available_books }}</span>
+          </p>
         </div>
       </section>
 
