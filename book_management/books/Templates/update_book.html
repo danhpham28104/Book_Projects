@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cập nhật sách</title>
+    <link rel="stylesheet" href="{% static 'css/update_book.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <header>
@@ -17,11 +20,49 @@
         </ul>
       </nav>
     </header>
-    <h2>Cập nhật thông tin sách</h2>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Lưu</button>
-    </form>
-    <a href="{% url 'books_list' %}">Quay lại danh sách sách</a>
+
+    <main>
+      <h2>Cập nhật thông tin sách</h2>
+      <form id="updateBookForm" method="post">
+        {% csrf_token %}
+        <label for="name">Tên sách:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{ book.name }}"
+          required
+        />
+        <label for="author">Tác giả:</label>
+        <input
+          type="text"
+          id="author"
+          name="author"
+          value="{{ book.author }}"
+          required
+        />
+        <label for="genre">Thể loại:</label>
+        <input
+          type="text"
+          id="genre"
+          name="genre"
+          value="{{ book.genre }}"
+          required
+        />
+        <label for="quantity">Số lượng:</label>
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          value="{{ book.quantity }}"
+          required
+        />
+        <label for="description">Mô tả:</label>
+        <textarea id="description" name="description">
+{{ book.description }}</textarea
+        >
+        <button type="submit">Cập nhật sách</button>
+      </form>
+    </main>
   </body>
 </html>

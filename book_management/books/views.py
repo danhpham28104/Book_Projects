@@ -68,16 +68,15 @@ def add_book(request):
     return render(request, 'add_book.html')  #Trả về form thêm sách nếu form ko đúng yêu cấu
 
 def update_book(request, pk):
-    # Lấy đối tượng sách theo khóa chính (PK), hoặc trả về lỗi 404 nếu không tìm thấy sách
     book = get_object_or_404(Book, pk=pk)
-    if request.method == 'POST':  # Kiểm tra khi người dùng gửi form cập nhật)
+    if request.method == 'POST':
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect('books_list')  # Hoặc 'index' tùy theo yêu cầu
+            return redirect('books_list')
     else:
         form = BookForm(instance=book)
-    return render(request, 'update_book.html', {'form': form, 'book': book})  # Trả về form cập nhật sách với dữ liệu của sách
+    return render(request, 'update_book.html', {'form': form})
 
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
